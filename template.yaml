@@ -1,0 +1,19 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Resources:
+  MicronautNativeFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: io.micronaut.function.aws.proxy.MicronautLambdaHandler
+      Runtime: provided.al2
+      Architectures:
+        - arm64
+      CodeUri: ./target/function.zip
+      MemorySize: 512
+      Events:
+        HttpPost:
+          Type: Api
+          Properties:
+            Path: '/'
+            Method: get
